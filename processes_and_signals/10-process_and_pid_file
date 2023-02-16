@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
 #this bash script does 5 functions
 
-
+terminator() {
+	rm /var/run/myscript.pid
+	exit
+}
+echo "$$" > /var/run/myscript.pid
+while true
+do
+	echo "To infinty and beyond"
+	sleep 2
+	trap 'echo "I hate the kill command" &&terminator' SIGTERM
+	trap 'echo "Y U no love me?!"' SIGINT
+	trap 'terminator' SIGQUIT
+done
